@@ -1,0 +1,37 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Enter Name" formControlName="name">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors?.['required']">Name is required</div>
+            <div *ngIf="name.errors?.['pattern']">Name must not contain any numbers or special characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="Enter Email" formControlName="email">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors?.['required']">Email is required</div>
+            <div *ngIf="email.errors?.['email']">Invalid email format</div>
+            <div *ngIf="email.errors?.['unique']">Email already exists</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Enter Password" formControlName="password">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+            <div *ngIf="password.errors?.['required']">Password is required</div>
+            <div *ngIf="password.errors?.['pattern']">Password must contain at least 8 characters, including uppercase, lowercase, a number, and a special character</div>
+            <div *ngIf="password.errors?.['containsNameOrEmail']">Password cannot include your name or email</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" class="form-control" placeholder="Enter Date of Birth" formControlName="dob">
+        <div *ngIf="dob.invalid && (dob.dirty || dob.touched)" class="alert alert-danger">
+            <div *ngIf="dob.errors?.['required']">Date of Birth is required</div>
+            <div *ngIf="dob.errors?.['age']">You must be at least 18 years old</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid" routerLink="/login">Register</button>
+</form>
